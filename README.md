@@ -25,10 +25,10 @@ A backend-focused personal project inspired by Google Drive — built to showcas
 
 ## ⚙️ Tech Stack
 
-**Backend:** Spring Boot (Java)  
-**Database:** PostgreSQL  
-**Storage:** AWS S3  
-**Cache:** Redis  
-**Search:** Elasticsearch  
-**Security:** JWT + RBAC  
-**Real-Time Collaboration:** WebSocket
+- **Backend:** Spring Boot (Java)  
+- **Database:** PostgreSQL  
+- **Storage:** AWS S3  
+- **Cache:** Redis  
+- **Search:** Elasticsearch  
+- **Security:** JWT + RBAC  
+- **Real-Time Collaboration:** WebSocket
