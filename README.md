@@ -1,15 +1,15 @@
-# 💾 FileShare — Secure File Sharing & Collaboration Platform
+# FileShare — Secure File Sharing & Collaboration Platform
 
 A backend-focused personal project inspired by Google Drive — built to showcase backend engineering, DevOps, and cloud skills.
 
 ---
 
-## 🚧 Project Status
-🛠️ In active development — Core backend features are being built.  
+## Project Status
+In active development — Core backend features are being built.  
 
 ---
 
-## 🌟 Overview
+## Overview
 
 **FileShare** is a secure file storage and collaboration platform that allows users and teams to:
 - Upload and download files to cloud storage
@@ -23,7 +23,7 @@ A backend-focused personal project inspired by Google Drive — built to showcas
 
 ---
 
-## ⚙️ Tech Stack
+## Tech Stack
 
 - **Backend:** Spring Boot (Java)  
 - **Database:** PostgreSQL  
