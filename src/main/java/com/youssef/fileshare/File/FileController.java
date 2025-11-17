@@ -17,7 +17,7 @@ public class FileController {
 
     private final FileService fileService;
 
-    @GetMapping("/{id")
+    @GetMapping("/{id}")
     public ResponseEntity<byte[]> downloadFile(@PathVariable int id) {
         File file = fileService.getFileMetadata(id);
         byte[] data = fileService.downloadFile(id);
@@ -42,5 +42,15 @@ public class FileController {
     @GetMapping
     public ResponseEntity<List<File>> listFiles() {
         return ResponseEntity.ok(fileService.listUserFiles());
+    }
+
+    // Polling endpoint
+    @GetMapping("/{id}/scan-status")
+    public ResponseEntity<?> getScanStatus(@PathVariable int id) {
+        try {
+            return ResponseEntity.ok(fileService.checkScanStatus(id));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }

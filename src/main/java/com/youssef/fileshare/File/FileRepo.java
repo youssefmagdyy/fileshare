@@ -9,5 +9,5 @@ import java.util.Optional;
 
 @Repository
 public interface FileRepo extends JpaRepository<File,Integer> {
-    List<File> FindAllByOwner(User user);
+    List<File> findAllByOwner(User user);
 }

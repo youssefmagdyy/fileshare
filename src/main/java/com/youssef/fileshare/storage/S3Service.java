@@ -17,11 +17,14 @@ public class S3Service {
     private final S3Client s3Client;
 
     @Value("${aws.s3.unscannedBucket}")
-    private String bucket;
+    private String unscannedBucket;
+
+    @Value("${aws.s3.cleanBucket}")
+    private String cleanBucket;
 
     public  String uploadFile(MultipartFile file, String key) throws IOException {
         PutObjectRequest putObjectRequest = PutObjectRequest.builder()
-                .bucket(bucket)
+                .bucket(unscannedBucket)
                 .key(key)
                 .contentType(file.getContentType())
                 .build();
@@ -32,14 +35,14 @@ public class S3Service {
     }
 
     public byte[] downloadFile(String key) {
-        GetObjectRequest getObjectRequest = GetObjectRequest.builder().bucket(bucket).key(key).build();
+        GetObjectRequest getObjectRequest = GetObjectRequest.builder().bucket(cleanBucket).key(key).build();
 
         return s3Client.getObjectAsBytes(getObjectRequest).asByteArray();
     }
 
     public void deleteFile(String key) {
         DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
-                .bucket(bucket)
+                .bucket(cleanBucket)
                 .key(key)
                 .build();
 

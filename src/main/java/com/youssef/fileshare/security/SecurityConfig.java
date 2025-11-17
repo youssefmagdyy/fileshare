@@ -47,7 +47,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/admin/**").hasAuthority("ADMIN")
-                        .requestMatchers("/admin/**").hasAnyAuthority("Admin","User")
+//                        .requestMatchers("/files/**").hasAnyAuthority("Admin","User")
                         .anyRequest().authenticated()
                 )
                 .authenticationProvider(authenticationProvider())

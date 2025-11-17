@@ -6,6 +6,7 @@ import com.youssef.fileshare.storage.S3Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -34,7 +35,11 @@ public class FileService {
     }
 
     public File uploadFile(MultipartFile file) throws IOException {
-        String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDetails userDetails =
+                (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        String username = userDetails.getUsername();
+
         User user = userRepo.findByUsername(username).orElseThrow();
 
         String key = "users/"+ user.getId() + "/" + System.currentTimeMillis() + "_" + file.getOriginalFilename();
@@ -56,10 +61,15 @@ public class FileService {
     }
 
     public List<File> listUserFiles() {
-        String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDetails userDetails =
+                (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        String username = userDetails.getUsername();
+
         User user = userRepo.findByUsername(username).orElseThrow();
-        return fileRepo.FindAllByOwner(user);
+        return fileRepo.findAllByOwner(user);
     }
+
 
     public Map<String, Object> checkScanStatus(int id) {
         File file = fileRepo.findById(id)
