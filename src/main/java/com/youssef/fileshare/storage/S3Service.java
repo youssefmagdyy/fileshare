@@ -6,10 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.Delete;
-import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
-import software.amazon.awssdk.services.s3.model.GetObjectRequest;
-import software.amazon.awssdk.services.s3.model.PutObjectRequest;
+import software.amazon.awssdk.services.s3.model.*;
 
 import java.io.IOException;
 
@@ -19,7 +16,7 @@ public class S3Service {
 
     private final S3Client s3Client;
 
-    @Value("${aws.s3.bucket-name}")
+    @Value("${aws.s3.unscannedBucket}")
     private String bucket;
 
     public  String uploadFile(MultipartFile file, String key) throws IOException {
@@ -48,4 +45,19 @@ public class S3Service {
 
         s3Client.deleteObject(deleteObjectRequest);
     }
+
+    public boolean exists(String bucket, String key) {
+        try {
+            s3Client.headObject(builder -> builder.bucket(bucket).key(key));
+            return true;
+        } catch (S3Exception e) {
+            if (e.statusCode() == 404) {
+                return false;
+            }
+            throw e;
+        }
+    }
+
+
+
 }
